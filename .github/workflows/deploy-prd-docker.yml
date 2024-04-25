@@ -1,9 +1,9 @@
 ---
-name: "Deploy DEV Docker"
+name: "Deploy PRD Docker"
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["main"]
 
 jobs:
   check_skip:
@@ -39,8 +39,7 @@ jobs:
         if: ${{ env.DOCKERHUB_TOKEN && env.DOCKERHUB_REPO && env.DOCKERHUB_USERNAME }}
         id: image_tag
         run: |
-          prefix="dev"
-          echo "Getting docker prefix from development"
+          prefix="prd"
           echo "Getting docker image tag using commit hash"
           echo "IMAGE_TAG=$prefix-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
