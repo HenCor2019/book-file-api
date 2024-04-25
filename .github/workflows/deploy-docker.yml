@@ -4,6 +4,14 @@ name: "Deploy DEV Docker"
 on:
   push:
     branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
+    types:
+      - opened
+      - edited
+      - synchronize
+      - labeled
+      - unlabeled
 
 jobs:
   check_skip:
