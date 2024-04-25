@@ -16,6 +16,10 @@ on:
 jobs:
   check_skip:
     runs-on: ubuntu-latest
+    env:
+      SERVER_HOST : ${{ secrets.SERVER_HOST  }}
+      SERVER_USERNAME : ${{ secrets.SERVER_USERNAME  }}
+      SSH_PRIVATE_KEY : ${{ secrets.SSH_PRIVATE_KEY  }}
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.12.1
@@ -25,7 +29,7 @@ jobs:
       - name: Logueo en el servidor
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.SERVER_HOST }}
-          username: ${{ env.SERVER_USERNAME }
-          key: ${{ env.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
