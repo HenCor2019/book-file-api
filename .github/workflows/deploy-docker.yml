@@ -74,5 +74,4 @@ jobs:
 
       - name: Descargar imagen Docker en el servidor
         run: |
-          # ssh -p 22 ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "docker pull hencor2019/book-finder:${{ steps.image_tag.outputs.IMAGE_TAG }}"
           ssh -p 22 ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "cat test.txt"
