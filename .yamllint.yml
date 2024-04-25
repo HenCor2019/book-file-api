@@ -1,0 +1,19 @@
+---
+extends: default
+
+ignore: |
+  node_modules/
+  pnpm-lock.yaml
+  pipeline/buildspec.yml
+
+rules:
+  line-length:
+    ignore: |
+      /.github/workflows/*.yaml
+      /.github/workflows/*.yml
+      /.github/settings.yml
+      ./pipeline/*.yml
+  truthy:
+    ignore: |
+      /.github/workflows/*.yaml
+      /.github/workflows/*.yml

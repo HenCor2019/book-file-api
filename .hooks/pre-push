@@ -1,0 +1,18 @@
+#!/bin/bash
+
+COVERAGE_FILE="coverage.out"
+COVERAGE_THRESHOLD=80
+
+go test -coverprofile="$COVERAGE_FILE" ./internal/... >/dev/null
+
+coverage=$(go tool cover -func="$COVERAGE_FILE" | grep total | awk '{print $3}' | sed 's/%//')
+
+if (( $(echo "$coverage < $COVERAGE_THRESHOLD" | bc -l) )); then
+    rm "$COVERAGE_FILE"
+    echo "Cannot push due to insufficient code coverage."
+    echo "Current coverage: $COVERAGE_THRESHOLD% ($coverage%)"
+    exit 1
+fi
+
+echo "The code coverage is sufficient: $COVERAGE_THRESHOLD% ($coverage%)"
+rm "$COVERAGE_FILE"

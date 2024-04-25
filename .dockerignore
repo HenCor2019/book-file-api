@@ -1,0 +1,14 @@
+# Ignore all files
+*
+
+# Required files
+!/go.mod
+!/go.sum
+!/api/
+!/middleware/
+!/internal/
+!/cmd/
+!/.air.toml
+
+# Ignore test
+internal/**/services/*_test.go

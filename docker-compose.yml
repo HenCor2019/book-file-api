@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: fiber-service-template
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "512m"
+        reservations:
+          cpus: "0.25"
+          memory: "256m"
+    build:
+      target: dev
+      context: .
+      args:
+        - PORT=${PORT:-3000}
+    volumes:
+      - .:/go/app/api
+    ports:
+      - ${PORT}:${PORT}
+      - ${DEBUG_SERVER_PORT}:${DEBUG_SERVER_PORT}
+    env_file:
+      - .env
