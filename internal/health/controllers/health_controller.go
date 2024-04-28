@@ -19,5 +19,6 @@ func New(healthCheckService services.HealthCheckService) HealthCheckController {
 
 func (c *Controller) HealthCheckHandler(ctx *fiber.Ctx) error {
 	healthStatus := c.healthCheckService.CheckHealth()
-	return ctx.SendString(healthStatus)
+	healthStatusWithHost := healthStatus + " " + ctx.Hostname()
+	return ctx.SendString(healthStatusWithHost)
 }
