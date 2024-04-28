@@ -1,5 +1,7 @@
 package services
 
+import "log"
+
 type HealthCheckService interface {
 	CheckHealth() string
 }
@@ -12,5 +14,6 @@ func New() HealthCheckService {
 }
 
 func (s *Service) CheckHealth() string {
+	log.Println("GET healthcheck")
 	return "ok"
 }
