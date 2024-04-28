@@ -56,7 +56,7 @@ jobs:
           docker push ${{ env.DOCKERHUB_USERNAME}}/${{ env.DOCKERHUB_REPO }}:${{ steps.image_tag.outputs.IMAGE_TAG }}
           docker push ${{ env.DOCKERHUB_USERNAME}}/${{ env.DOCKERHUB_REPO }}:latest
 
-      - name: Copy service via ssh key 🔧
+      - name: Copy deployment using scp 🔧
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST  }}
@@ -67,7 +67,7 @@ jobs:
           target: "book-service"
 
       - name: Deploy to server 🔧
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
