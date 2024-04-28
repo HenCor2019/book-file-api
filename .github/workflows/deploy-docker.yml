@@ -71,7 +71,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME  }}
           key: ${{ secrets.SSH_PRIVATE_KEY  }}
           port: 22
-          source: "service.yml"
+          source: ".deployments/service.yml"
           target: "book-service"
 
       - name: Deploy to server 🔧
@@ -81,7 +81,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          script:
+          script: |
             cd book-service
             sed -i 's/COMMIT_SHA/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
             sudo docker-compose -f service.yml up --build -d
