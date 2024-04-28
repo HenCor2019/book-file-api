@@ -7,6 +7,7 @@ import (
 
 type HealthCheckController interface {
 	HealthCheckHandler(ctx *fiber.Ctx) error
+	HelloWorldHandler(ctx *fiber.Ctx) error
 }
 
 type Controller struct {
@@ -20,4 +21,9 @@ func New(healthCheckService services.HealthCheckService) HealthCheckController {
 func (c *Controller) HealthCheckHandler(ctx *fiber.Ctx) error {
 	healthStatus := c.healthCheckService.CheckHealth()
 	return ctx.SendString(healthStatus)
+}
+
+func (c *Controller) HelloWorldHandler(ctx *fiber.Ctx) error {
+	helloWorld := c.healthCheckService.CheckHelloWorld()
+	return ctx.SendString(helloWorld)
 }

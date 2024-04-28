@@ -1,9 +1,8 @@
 package services
 
-import "log"
-
 type HealthCheckService interface {
 	CheckHealth() string
+	CheckHelloWorld() string
 }
 
 type Service struct {
@@ -14,6 +13,9 @@ func New() HealthCheckService {
 }
 
 func (s *Service) CheckHealth() string {
-	log.Println("GET healthcheck")
 	return "ok"
+}
+
+func (s *Service) CheckHelloWorld() string {
+	return "Hello World"
 }
