@@ -72,7 +72,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY  }}
           port: 22
           source: "service.yml"
-          target: "/book-service"
+          target: "book-service"
 
       - name: Deploy to server 🔧
         uses: appleboy/ssh-action@master
@@ -82,6 +82,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script:
-            sudo cd /book-service
-            sudo sed -i 's/COMMIT_SHA/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
+            cd book-service
+            sed -i 's/COMMIT_SHA/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
             sudo docker-compose -f service.yml up --build -d
