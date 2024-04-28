@@ -67,8 +67,8 @@ jobs:
       - name: Copy service via ssh key
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          host: ${{ secrets.SERVER_HOST  }}
+          username: ${{ secrets.SERVER_USERNAME  }}
           key: ${{ secrets.SSH_PRIVATE_KEY  }}
           port: 22
           source: ".deployments/service.yml"
