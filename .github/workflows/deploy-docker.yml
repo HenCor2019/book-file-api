@@ -83,5 +83,5 @@ jobs:
           port: 22
           script: |
             cd book-service
-            sed -i 's/COMMIT_SHA/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
+            sed -i 's/\(dev-[a-zA-Z0-9]\{1,7\}\|COMMIT_SHA\)/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
             sudo docker-compose -f service.yml up --build -d
