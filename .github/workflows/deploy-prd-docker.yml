@@ -1,9 +1,9 @@
 ---
-name: "Deploy DEV Docker"
+name: "Deploy PRD Docker"
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["main"]
 
 jobs:
   check_skip:
@@ -39,8 +39,7 @@ jobs:
         if: ${{ env.DOCKERHUB_TOKEN && env.DOCKERHUB_REPO && env.DOCKERHUB_USERNAME }}
         id: image_tag
         run: |
-          prefix="dev"
-          echo "Getting docker prefix from development"
+          prefix="prd"
           echo "Getting docker image tag using commit hash"
           echo "IMAGE_TAG=$prefix-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
@@ -55,25 +54,3 @@ jobs:
         run: |
           docker push ${{ env.DOCKERHUB_USERNAME}}/${{ env.DOCKERHUB_REPO }}:${{ steps.image_tag.outputs.IMAGE_TAG }}
           docker push ${{ env.DOCKERHUB_USERNAME}}/${{ env.DOCKERHUB_REPO }}:latest
-
-      - name: Copy deployment using scp 🔧
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_HOST  }}
-          username: ${{ secrets.SERVER_USERNAME  }}
-          key: ${{ secrets.SSH_PRIVATE_KEY  }}
-          port: 22
-          source: ".deployments/service.yml"
-          target: "book-service"
-
-      - name: Deploy to server 🔧
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd book-service
-            sed -i 's/\(dev-[a-zA-Z0-9]\{1,7\}\|COMMIT_SHA\)/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
-            sudo docker-compose -f service.yml up --build -d

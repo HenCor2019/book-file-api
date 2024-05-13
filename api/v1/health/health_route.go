@@ -18,6 +18,6 @@ func New(health_ctnlr health_ctnlr.HealthCheckController) HealthRtr {
 }
 
 func (module *Rtr) Routes(router fiber.Router) {
+	router.Get("/hello-world", module.health_ctnlr.HelloWorldHandler)
 	router.Get("/", module.health_ctnlr.HealthCheckHandler)
-
 }

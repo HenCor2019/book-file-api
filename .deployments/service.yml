@@ -1,0 +1,31 @@
+services:
+  book-service-main:
+    image: hencor2019/book-finder:COMMIT_SHA
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/v1/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "${PORTS}:${PORT}"
+    deploy:
+      mode: replicated
+      replicas: "${REPLICAS}"
+      endpoint_mode: vip
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+    environment:
+      - PORT=${PORT}
+      - PORTS=${PORTS}
+      - REPLICAS=${REPLICAS}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+
+networks:
+  default:
+    external: true
+    name: webproxy
