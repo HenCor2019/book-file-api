@@ -1,23 +1,19 @@
 package routes
 
 import (
-	health_ctnlr "github.com/HenCor2019/fiber-service-template/internal/health/controllers"
-	"github.com/gofiber/fiber/v2"
+	"github.com/HenCor2019/book-file-api/api/config"
+	health_ctnlr "github.com/HenCor2019/book-file-api/internal/health/controllers"
 )
 
-type HealthRtr interface {
-	Routes(router fiber.Router)
-}
+type HealthRtr interface{}
 
 type Rtr struct {
 	health_ctnlr health_ctnlr.HealthCheckController
+	router       *config.RouteBundle
 }
 
-func New(health_ctnlr health_ctnlr.HealthCheckController) HealthRtr {
-	return &Rtr{health_ctnlr}
-}
-
-func (module *Rtr) Routes(router fiber.Router) {
-	router.Get("/hello-world", module.health_ctnlr.HelloWorldHandler)
-	router.Get("/", module.health_ctnlr.HealthCheckHandler)
+func New(health_ctnlr health_ctnlr.HealthCheckController, router *config.RouteBundle) HealthRtr {
+	healthGroup := router.Group()
+	healthGroup.HandleFunc("GET /healthcheck", health_ctnlr.HealthCheckHandler)
+	return &Rtr{health_ctnlr, router}
 }

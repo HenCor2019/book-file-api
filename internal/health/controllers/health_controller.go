@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"github.com/HenCor2019/fiber-service-template/internal/health/services"
-	"github.com/gofiber/fiber/v2"
+	"net/http"
+
+	"github.com/HenCor2019/book-file-api/internal/health/services"
 )
 
 type HealthCheckController interface {
-	HealthCheckHandler(ctx *fiber.Ctx) error
-	HelloWorldHandler(ctx *fiber.Ctx) error
+	HealthCheckHandler(w http.ResponseWriter, r *http.Request)
 }
 
 type Controller struct {
@@ -18,12 +18,11 @@ func New(healthCheckService services.HealthCheckService) HealthCheckController {
 	return &Controller{healthCheckService: healthCheckService}
 }
 
-func (c *Controller) HealthCheckHandler(ctx *fiber.Ctx) error {
+func (c *Controller) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	healthStatus := c.healthCheckService.CheckHealth()
-	return ctx.SendString(healthStatus)
-}
 
-func (c *Controller) HelloWorldHandler(ctx *fiber.Ctx) error {
-	helloWorld := c.healthCheckService.CheckHelloWorld()
-	return ctx.SendString(helloWorld)
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write([]byte(healthStatus)); err != nil {
+		http.Error(w, "Failed to write response", http.StatusInternalServerError)
+	}
 }
