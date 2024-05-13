@@ -3,7 +3,7 @@ package services_test
 import (
 	"testing"
 
-	health_svc "github.com/HenCor2019/fiber-service-template/internal/health/services"
+	health_svc "github.com/HenCor2019/book-file-api/internal/health/services"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -24,15 +24,5 @@ func TestCheckHealth(t *testing.T) {
 		t.Parallel()
 		result := service.CheckHealth()
 		assert.Equal(t, "ok", result)
-	})
-}
-
-func TestHelloWorld(t *testing.T) {
-	service := health_svc.New()
-
-	t.Run("Should return Hello World", func(t *testing.T) {
-		t.Parallel()
-		result := service.CheckHelloWorld()
-		assert.Equal(t, "Hello World", result)
 	})
 }

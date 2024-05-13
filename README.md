@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/HenCor2019/fiber-service-template/actions/workflows/golang.yml?branch=main"><img src="https://github.com/HenCor2019/fiber-service-template/actions/workflows/golang.yml/badge.svg?branch=main" alt="fiber"/></a>
+  <a href="https://github.com/HenCor2019/book-file-api/actions/workflows/golang.yml?branch=main"><img src="https://github.com/HenCor2019/book-file-api/actions/workflows/golang.yml/badge.svg?branch=main" alt="fiber"/></a>
   <a href="https://go.dev/doc/go1.19"><img src="https://img.shields.io/badge/Go-1.19-blue" alt="golang"/></a>
   <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Dockerized 🐳_-blue.svg" alt="docker"/></a>
 </p>
