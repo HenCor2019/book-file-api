@@ -15,5 +15,6 @@ type Rtr struct {
 func New(health_ctnlr health_ctnlr.HealthCheckController, router *config.RouteBundle) HealthRtr {
 	healthGroup := router.Group()
 	healthGroup.HandleFunc("GET /healthcheck", health_ctnlr.HealthCheckHandler)
+	healthGroup.HandleFunc("GET /hello-world", health_ctnlr.HelloWorldHandler)
 	return &Rtr{health_ctnlr, router}
 }
