@@ -23,6 +23,7 @@ services:
       - PORT=${PORT}
       - PORTS=${PORTS}
       - REPLICAS=${REPLICAS}
+      - ENV=${ENV}
       - VIRTUAL_HOST=${VIRTUAL_HOST}
 
 networks:
