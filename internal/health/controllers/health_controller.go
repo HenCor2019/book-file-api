@@ -8,6 +8,7 @@ import (
 
 type HealthCheckController interface {
 	HealthCheckHandler(w http.ResponseWriter, r *http.Request)
+	HelloWorldHandler(w http.ResponseWriter, r *http.Request)
 }
 
 type Controller struct {
@@ -23,6 +24,14 @@ func (c *Controller) HealthCheckHandler(w http.ResponseWriter, r *http.Request) 
 
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write([]byte(healthStatus)); err != nil {
+		http.Error(w, "Failed to write response", http.StatusInternalServerError)
+	}
+}
+
+func (c *Controller) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
+	helloWorldMessage := c.healthCheckService.HelloWorld()
+	w.WriteHeader(http.StatusOK)
+	if _, err := w.Write([]byte(helloWorldMessage)); err != nil {
 		http.Error(w, "Failed to write response", http.StatusInternalServerError)
 	}
 }
