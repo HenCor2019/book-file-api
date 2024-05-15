@@ -74,6 +74,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd .book-services/dev
+            cd .book-services/dev/.deployments
+            sed -i 's/book-service-ENV/book-service-dev/g' service.yml
             sed -i 's/\(dev-[a-zA-Z0-9]\{1,7\}\|COMMIT_SHA\)/${{ steps.image_tag.outputs.IMAGE_TAG }}/g' service.yml
             sudo docker-compose -f service.yml up --build -d
