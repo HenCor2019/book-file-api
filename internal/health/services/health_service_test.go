@@ -26,3 +26,13 @@ func TestCheckHealth(t *testing.T) {
 		assert.Equal(t, "ok", result)
 	})
 }
+
+func TestHelloWorld(t *testing.T) {
+	service := health_svc.New()
+
+	t.Run("Should return Hello World from ENV: ", func(t *testing.T) {
+		t.Parallel()
+		result := service.HelloWorld()
+		assert.Equal(t, "Hello World from ENV: ", result)
+	})
+}
